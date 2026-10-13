@@ -27,6 +27,7 @@ func _run() -> void:
 	await _test_sight()
 	await _test_hearing()
 	await _test_scan()
+	await _test_ladder()
 	await _test_hub()
 
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(TEST_SAVE))
@@ -140,6 +141,38 @@ func _test_scan() -> void:
 	_check(guard_tag.is_revealed(), "Wall Sight upgrade scans through the walkway")
 	level.free()
 	_game_state.reset()
+
+
+func _test_ladder() -> void:
+	print("Ladder (no jumping)")
+	_check(not InputMap.has_action("jump"), "there is no jump action")
+	var level: Node = await _tower_with_agent_at(Vector2(135, 228), 10)
+	var agent: AgentSide = level.get_node("Agent")
+	var walkway_feet: float = level.get_node("Ladder").top_y()
+	Input.action_press("move_up")
+	for i in 120:
+		await get_tree().physics_frame
+	Input.action_release("move_up")
+	for i in 10:
+		await get_tree().physics_frame
+	_check(not agent.climbing and absf(agent.global_position.y + 11.0 - walkway_feet) < 1.0,
+		"W climbs the ladder up onto the walkway")
+	_check(agent.is_on_floor(), "the Agent stands on the walkway at the top")
+	Input.action_press("move_down")
+	for i in 120:
+		await get_tree().physics_frame
+	Input.action_release("move_down")
+	_check(absf(agent.global_position.y - 229.0) < 1.0, "S climbs back down to the floor")
+	level.free()
+
+	level = await _tower_with_agent_at(Vector2(60, 228), 10)
+	agent = level.get_node("Agent")
+	Input.action_press("move_up")
+	for i in 30:
+		await get_tree().physics_frame
+	Input.action_release("move_up")
+	_check(not agent.climbing and agent.global_position.y > 220.0, "W does nothing away from a ladder")
+	level.free()
 
 
 func _test_hub() -> void:

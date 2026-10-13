@@ -125,8 +125,11 @@ Everything is placeholder boxes until there's real pixel art. Play starts in the
 
 **Playable now**
 - **Hub street (top-down):** walk the street, avoid the patrolling guard, enter the tower's blue door. Tab opens the upgrade menu.
-- **Tower Test mission (side view):** climb past the guard to the green roof exit. Finishing it the first time gives 1 skill point and returns you to the hub.
+- **Tower Test mission (side view):** climb the ladder and sneak along the walkway past the guard to the green roof exit. Finishing it the first time gives 1 skill point and returns you to the hub.
 - **Being spotted** (a guard's suspicion meter fills) restarts the level.
+
+**Movement: no jumping** (decided 10/13/2026)
+The Agent walks, sneaks, and drops off ledges, but can't jump. Moving between floors happens at specific spots: **ladders** now, later **vents, stairs, ledges to pull up onto, and elevators**. This keeps the game about routes and timing rather than platforming, gives both views the same controls, and separates it from the Action Game. Extra movement (a grappling line, a drone that carries the Agent) can come back as **upgrades**.
 
 **Stealth rules**
 - **Sight:** guards have a vision cone; walls and floors block it. Seeing the Agent fills a suspicion meter (faster up close), so a quick glimpse isn't instant failure.
@@ -147,14 +150,14 @@ The trees are data files in `data/upgrades/`. Open one in Godot to edit names, c
 | Folder | What's in it |
 |---|---|
 | `autoload/` | Always-loaded systems: `Events` (messages between systems), `GameState` (skill points, upgrades, save file), `SceneRouter` (scene changes with a fade) |
-| `components/` | Reusable parts: vision, hearing, suspicion, scanner, scannable tag, health, solid block, exit/door |
+| `components/` | Reusable parts: vision, hearing, suspicion, scanner, scannable tag, health, solid block, exit/door, ladder |
 | `actors/` | The Agent and guards, each with a side-view and a top-down version sharing the same logic |
 | `data/upgrades/` | One upgrade tree per device |
 | `levels/` | `hub/` (top-down) and `missions/` (side view); every level uses `level.gd` |
 | `ui/` | HUD and upgrade menu |
-| `tests/` | Automated checks (26 of them) for upgrades, saving, sight, hearing, scanning and the hub |
+| `tests/` | Automated checks (31 of them) for upgrades, saving, sight, hearing, scanning, ladders and the hub |
 
-**Controls:** WASD or arrows to move, Space to jump (side view), hold Shift to sneak, Q to scan, Tab for upgrades (hub), R to restart.
+**Controls:** WASD or arrows to move, W/S to climb ladders (side view), E to grab or let go of a ladder, hold Shift to sneak, Q to scan, Tab for upgrades (hub), R to restart.
 
 **Not built yet:** combat (the beam, armor tiers mattering), the drone, the vehicle, real art and sound.
 

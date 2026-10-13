@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://actors/player/agent_side.tscn" id="5_agent"]
 [ext_resource type="PackedScene" path="res://actors/enemies/guard_side.tscn" id="6_guard"]
 [ext_resource type="Script" path="res://components/scannable.gd" id="7_scannable"]
+[ext_resource type="Script" path="res://components/ladder.gd" id="8_ladder"]
 
 [node name="TowerTest" type="Node2D"]
 script = ExtResource("1_level")
@@ -40,15 +41,15 @@ position = Vector2(476, 135)
 script = ExtResource("2_block")
 size = Vector2(8, 270)
 
-[node name="Crate" type="StaticBody2D" parent="Blocks"]
-position = Vector2(105, 222.5)
-script = ExtResource("2_block")
-size = Vector2(30, 35)
-
 [node name="Walkway" type="StaticBody2D" parent="Blocks"]
 position = Vector2(240, 176)
 script = ExtResource("2_block")
 size = Vector2(240, 8)
+
+[node name="Ladder" type="Area2D" parent="."]
+position = Vector2(135, 240)
+script = ExtResource("8_ladder")
+height = 68.0
 
 [node name="Agent" parent="." instance=ExtResource("5_agent")]
 position = Vector2(40, 228)
@@ -71,5 +72,5 @@ details = "Mission exit"
 bracket_size = Vector2(34, 34)
 
 [node name="HUD" parent="." instance=ExtResource("4_hud")]
-hint_text = "A/D move  Space jump  hold Shift sneak  Q scan  R restart
+hint_text = "A/D move  W/S climb  hold Shift sneak  Q scan  R restart
 Running is loud. Reach the green exit unseen."

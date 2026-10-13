@@ -8,7 +8,7 @@ A real-time stealth and tactics game: scan, plan, execute. 2D pixel art with mix
 ## Play it
 Open Godot, choose **Import**, pick `project.godot` in this folder, then press **F5**. You start on the hub street.
 
-WASD or arrows move, Space jumps (side view), hold Shift to sneak, Q scans, Tab opens upgrades (hub), R restarts.
+WASD or arrows move, W/S climb ladders (side view), E grabs or lets go of a ladder, hold Shift to sneak, Q scans, Tab opens upgrades (hub), R restarts.
 
 ## Run the tests
 From this folder:
